@@ -1,0 +1,22 @@
+# For remove "IndexOf" pages
+
+Options +FollowSymLinks
+Options -Indexes
+
+# ReWrites
+RewriteEngine on
+RewriteBase /
+
+RewriteRule ^comodidades/ /index.php
+RewriteRule ^fotos/ /index.php
+RewriteRule ^inicio/ /index.php
+RewriteRule ^contacto/ index.php
+
+RewriteRule ^comodidades /index.php
+RewriteRule ^fotos /index.php
+RewriteRule ^inicio /index.php
+RewriteRule ^contacto /index.php
+
+# All those URL rewrites are because we need to redirect
+# to all those addresses to our index.php, so we from 
+# index.php we took the URL with the History extension of BackboneJS
