@@ -7,12 +7,12 @@ Options -Indexes
 RewriteEngine on
 RewriteBase /
 
-RewriteRule ^comodidades/ /index.php
+RewriteRule ^historia/ /index.php
 RewriteRule ^fotos/ /index.php
 RewriteRule ^inicio/ /index.php
 RewriteRule ^contacto/ index.php
 
-RewriteRule ^comodidades /index.php
+RewriteRule ^historia /index.php
 RewriteRule ^fotos /index.php
 RewriteRule ^inicio /index.php
 RewriteRule ^contacto /index.php
