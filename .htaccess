@@ -10,7 +10,7 @@ RewriteBase /
 RewriteRule ^historia/ /index.php
 RewriteRule ^fotos/ /index.php
 RewriteRule ^inicio/ /index.php
-RewriteRule ^contacto/ index.php
+RewriteRule ^contacto/ /index.php
 
 RewriteRule ^historia /index.php
 RewriteRule ^fotos /index.php
