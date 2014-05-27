@@ -25,7 +25,7 @@ class Category extends Misc {
     }
     public function editCategory($id_category, $name, $description)
     {
- 		$id_poll = intval($id_poll);
+ 		$id_category = intval($id_category);
 		
 		$array_values = array(
 			"name" => $name,
@@ -43,7 +43,6 @@ class Category extends Misc {
     public function newCategory($name, $description)
     {
 
-		$id_poll = intval($id_poll);
 		
 		$array_values = array(
 			"name" => $name,
