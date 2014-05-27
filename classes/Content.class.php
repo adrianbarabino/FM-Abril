@@ -2,6 +2,11 @@
 
 require_once './classes/Misc.class.php';
 
+// ToDo list:
+// Verify variables 
+// Add more methods like GetContentByAuthor or ByCategory
+// Add support to JBBCode
+
 
 class Content extends Misc {
 
@@ -35,7 +40,7 @@ class Content extends Misc {
 			"date" => $date,
 			"tags" => $tags
 			);
-		
+
 		$where_array = array("id", "=", $id_content);
 		if($this->updateToDB("content", $array_values, $where_array)){
 			// Content update sucefully ! 
