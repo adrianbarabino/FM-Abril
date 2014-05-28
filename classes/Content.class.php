@@ -42,15 +42,16 @@ class Content extends Misc {
 			);
 
 		$where_array = array("id", "=", $id_content);
-		if($this->updateToDB("content", $array_values, $where_array)){
+		if($this->_db->updateToDB("content", $array_values, $where_array)){
 			// Content update sucefully ! 
+			return true;
 		}else{
 			// Error
 			die("Error updating the Content!");
 		}
     }
 
-    public function newContent($id_content, $id_cat, $id_author, $title, $content, $date, $tags)
+    public function newContent($id_cat, $id_author, $title, $content, $date, $tags)
     {
 		
 		$array_values = array(
@@ -63,8 +64,10 @@ class Content extends Misc {
 			);
 
 
-		if($id_content = $this->insertToDB("content", $array_values)){
+		if($id_content = $this->_db->insertToDB("content", $array_values)){
 			// Content created sucefully ! 
+			return $id_content;
+			// If is all right we return the ID of our new content
 		}else{
 			// Error
 			die("Error creating the Content!");

@@ -13,6 +13,24 @@ class Category extends Misc {
 		return $this->_db->haveRows($result);
 		
     }
+    public function getData($id_category)
+    {
+    	if($this->isExist($id_category))
+    	{
+    		$result = $this->_db->simpleSelect("categories C", "C.*", array("id", "=", $id_category));
+    		if($row = $result->fetch_assoc()){
+	        	$categoryData = array(
+	        		"id" => $row['id'],
+	        		"name" => $row['name'],
+	        		"description" => $row['description']
+	        	);
+        	}
+
+        	return json_encode($categoryData);
+    	}else{
+    		die("Category doesn't exist!");
+    	}
+    }
     public function deleteCategory($id_category)
     {
 		$where_array = array("id", "=", $id_category);
@@ -32,8 +50,9 @@ class Category extends Misc {
 			"description" => $description
 			);
 		$where_array = array("id", "=", $id_category);
-		if($this->updateToDB("categories", $array_values, $where_array)){
+		if($this->_db->updateToDB("categories", $array_values, $where_array)){
 			// Category update sucefully ! 
+			return true;
 		}else{
 			// Error
 			die("Error updating the Category!");
@@ -50,8 +69,10 @@ class Category extends Misc {
 			);
 
 
-		if($id_category = $this->insertToDB("categories", $array_values)){
+		if($id_category = $this->_db->insertToDB("categories", $array_values)){
 			// Category created sucefully ! 
+			return $id_category;
+			// If is all right, we return the id of the new cat
 		}else{
 			// Error
 			die("Error creating the Category!");
