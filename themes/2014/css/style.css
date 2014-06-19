@@ -9,3 +9,12 @@ Author URI: http://www.adrianbarabino.net/
 body{
 	
 }
+
+
+/* JS fallback (for robots maybe, i dont know really) */
+.nojs #loading{
+	display:none!important;
+}
+.nojs #inicio{
+	display:block!important;
+}
