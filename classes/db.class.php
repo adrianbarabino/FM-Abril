@@ -30,7 +30,7 @@ class Db {
 			return $this->raw->insert_id;
 		}else{
 			return false;
-			die("ERROR in the query: ".$this->raw->error);
+			// die("ERROR in the query: ".$this->raw->error);
 		}
 	}
 

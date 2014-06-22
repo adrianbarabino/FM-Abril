@@ -28,8 +28,57 @@ class Content extends Misc {
 			die("Error deleting the Content!");
 		}
     }
-    public function editContent($id_content, $id_cat, $id_author, $title, $content, $date, $tags)
+
+
+
+
+    public function getContent($id_content){
+        $fields_array = array("categories.id as 'id_category'", "categories.name as 'category_name'",  "users.id as 'id_author'", "users.username as 'username'", "users.fullname as 'fullname'", "C.*");
+        $where_array = array(array("C.id", "=", $id_content));
+        $join_array = array(
+            array("INNER", "categories", "categories.id", "=", "C.id_cat"),            
+            array("LEFT", "users", "users.id", "=", "C.id_author")            
+            );
+
+		$result = $this->_db->advancedSelect("content C",$fields_array,$where_array, $join_array);
+        if($row = $result->fetch_assoc()){
+    	$contentData = array(
+			"id_cat" => $row['id_cat'],
+			"category" => $row['category_name'],
+			"id_author" => $row['id_author'],
+			"author_username" => $row['username'],
+			"author" => $row['fullname'],
+			"title" => $row['title'],
+			"content" => $row['content'],
+			"date" => $row['date'],
+			"tags" => $row['tags'],
+			"slug" => $row['slug']
+    		);
+        	return $contentData;
+        }else{
+        	return $this->glob['db']->error;
+        }
+    }
+
+    public function getContentId($slug)
     {
+        $result = $this->_db->simpleSelect("content C", "C.slug, C.id", array("slug", "=", $slug));
+
+        if($row = $result->fetch_assoc()){
+        	$result_array = array("id" => $row['id']);
+        	if($result_array['id']){
+
+    			return $result_array['id'];
+        	}else{
+        		return false;
+        	}
+    	}
+    }
+    public function editContent($id_content, $id_cat, $id_author, $title, $content, $tags, $slug, $date = NULL)
+    {
+		if($date == NULL)
+			$date = date("Y-m-d H:i:s");
+
  		$id_content = intval($id_content);
 		
 		$array_values = array(
@@ -38,7 +87,8 @@ class Content extends Misc {
 			"title" => $title,
 			"content" => $content,
 			"date" => $date,
-			"tags" => $tags
+			"tags" => $tags,
+			"slug" => $slug
 			);
 
 		$where_array = array("id", "=", $id_content);
@@ -51,16 +101,18 @@ class Content extends Misc {
 		}
     }
 
-    public function newContent($id_cat, $id_author, $title, $content, $date, $tags)
+    public function newContent($id_cat, $id_author, $title, $content, $tags, $slug, $date = NULL)
     {
-		
+		if($date == NULL)
+			$date = date("Y-m-d H:i:s");
 		$array_values = array(
 			"id_cat" => $id_cat,
 			"id_author" => $id_author,
 			"title" => $title,
 			"content" => $content,
 			"date" => $date,
-			"tags" => $tags
+			"tags" => $tags,
+			"slug" => $slug
 			);
 
 
