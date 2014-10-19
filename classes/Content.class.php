@@ -49,7 +49,7 @@ class Content extends Misc {
 			"author_username" => $row['username'],
 			"author" => $row['fullname'],
 			"title" => $row['title'],
-			"content" => $row['content'],
+			"content" => $this->cleanContent($row['content']),
 			"date" => $row['date'],
 			"tags" => $row['tags'],
 			"slug" => $row['slug']
@@ -58,6 +58,36 @@ class Content extends Misc {
         }else{
         	return $this->glob['db']->error;
         }
+    }
+
+    public function getAll(){
+        $fields_array = array("categories.id as 'id_category'", "categories.name as 'category_name'",  "users.id as 'id_author'", "users.username as 'username'", "users.fullname as 'fullname'", "C.*");
+        $join_array = array(
+            array("INNER", "categories", "categories.id", "=", "C.id_cat"),            
+            array("LEFT", "users", "users.id", "=", "C.id_author")            
+            );
+
+		$result = $this->_db->advancedSelect("content C",$fields_array,NULL, $join_array);
+		$allContent = array();
+		while ($row = $result->fetch_assoc()) {
+    	$contentData = array(
+			"id" => $row['id'],
+			"id_cat" => $row['id_cat'],
+			"category" => $row['category_name'],
+			"id_author" => $row['id_author'],
+			"author_username" => $row['username'],
+			"author" => $row['fullname'],
+			"title" => $row['title'],
+			"content" => $this->cleanContent($row['content']),
+			"short_content" => $this->cutContent($row['content']),
+			"date" => $row['date'],
+			"short_date" => date("m/d/Y", strtotime($row['date'])),
+			"tags" => $row['tags'],
+			"slug" => $row['slug']
+    		);			
+    		array_push($allContent, $contentData);
+		}
+		return $allContent;
     }
 
     public function getContentId($slug)
@@ -82,6 +112,7 @@ class Content extends Misc {
  		$id_content = intval($id_content);
 		
 		$array_values = array(
+			"id" => $id,
 			"id_cat" => $id_cat,
 			"id_author" => $id_author,
 			"title" => $title,

@@ -8,14 +8,20 @@ RewriteEngine on
 RewriteBase /
 
 RewriteRule ^historia/ /index.php
+RewriteRule ^articulos/ /index.php
+RewriteRule ^articulos/$1 /index.php
 RewriteRule ^fotos/ /index.php
 RewriteRule ^inicio/ /index.php
 RewriteRule ^contacto/ /index.php
 
 RewriteRule ^historia /index.php
+RewriteRule ^articulos /index.php
 RewriteRule ^fotos /index.php
 RewriteRule ^inicio /index.php
 RewriteRule ^contacto /index.php
+
+RewriteRule ^articulo/([^/]+)/ index.php
+RewriteRule ^contenido/([^/]+)/ index.php
 
 # All those URL rewrites are because we need to redirect
 # to all those addresses to our index.php, so we from 

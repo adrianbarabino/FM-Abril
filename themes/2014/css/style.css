@@ -7,7 +7,11 @@ Author URI: http://www.adrianbarabino.net/
 */
 
 body{
-	
+	font-family: 'Droid Serif', serif;
+}
+
+#articulos div.opened{
+	display:block!important;
 }
 
 
@@ -17,4 +21,201 @@ body{
 }
 .nojs #inicio{
 	display:block!important;
+}
+
+.pageSection{
+	padding: 1em;
+}
+footer{
+	padding: 1em;
+font-size: 14px;
+text-align: center;
+}
+#mainWrapper{
+	width: 90%;
+margin: 0 auto;
+border-left: 1px solid rgba(0,0,0,.1);
+border-right: 1px solid rgba(0,0,0,.1);
+background: #fff;
+box-shadow: 0 0 200px -20px rgba(0, 0, 0, 0.23);
+}
+
+html, body{
+	margin:0;
+	padding:0;
+background: #e2e2e2;
+}
+
+a{
+	color:#44517F;
+}
+
+nav{
+	border-top: 1px solid #ddd;
+	border-bottom:8px solid #96A2D1;
+	background:#F7F5FF;
+	padding:0;
+	position:relative;
+	text-align:right;
+	padding-left:4em;
+	
+}
+
+#mainLogo{
+	margin: 0;
+position: absolute;
+display: inline-block;
+left: 1em;
+width: 60px;
+}
+
+#mainLogo img{
+	width:100%;
+}
+
+p.insideAudio{
+
+	font-size: 16px;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	vertical-align: super;
+}
+
+
+nav h2{
+	display: inline-block;
+	margin:0;
+	color:#444;
+	display:none;
+	padding: 0 2em 0 0.5em;
+}
+nav .jp-controls{
+	text-align:left;
+}
+
+nav .jp-audio{
+	display: inline-block;
+	vertical-align: bottom;
+	height:40px;
+}
+nav .jp-type-single{
+	position: relative;
+	top:-0.1em;
+
+}
+nav ul#nav{
+	padding:0;
+	width:50%;
+	margin:0;
+	display: inline-block;
+	list-style: none;
+	position: relative;
+	text-align:center;
+}
+
+ul#nav li{
+	display: inline-block;
+	padding:0.5em 0.5em;
+	border-bottom: 8px solid #96A2D1;
+	transition: all 0.3s ease-in-out;
+	margin-bottom: -8px;
+	line-height: 2em;
+}
+
+ul#nav li a{
+	text-decoration: none;
+	color:#555;
+}
+
+ul#nav li:hover, ul#nav li.current{
+	background: #DFE2FD;
+	border-bottom: 8px solid rgba(47, 71, 160, 0.61);
+
+}
+
+nav .jp-type-single{
+	display:inline-block;
+}
+
+nav ul#nav li.menu{
+	display:none;
+	position: relative;
+	width:55px;
+	background:#F7F5FF;
+}
+
+nav li.menu img{
+	width: 45px;
+	position:absolute;
+opacity: 0.3;
+bottom: 0.15em;
+left: 0.55em;
+}
+@media screen and (max-width:1300px){
+	div.jp-audio{
+		width:47%!important;
+	}
+	ul#nav{
+		width:50%;
+	}
+	p.insideAudio{
+		font-size:14px;
+		top:-0.5em;
+	}
+}
+@media screen and (max-width:1150px){
+
+	
+	p.insideAudio{
+		font-size:12px;
+		top:-0.5em;
+		font-weight: bold;
+	}
+	div.jp-audio{
+		width:44%!important;
+	}
+	nav ul#nav{
+		width:54%;
+	}
+	ul#nav li{
+		font-size:14px;
+		padding:0.5em 0.2em;
+	}
+
+
+}
+
+@media screen and (max-width:950px){
+	nav ul#nav li{
+		display: none;
+	}
+	div.jp-audio{
+		width:87%!important;
+	}
+	nav ul#nav{
+		width:10%;
+		text-align: right;
+	}
+	p.insideAudio strong{
+		display: inline-block;
+	}
+	li.menu{
+		display: inline-block!important;
+	}
+}
+
+@media screen and (max-width:650px){
+	p.insideAudio strong{
+		display: none;
+	}
+
+}
+
+
+
+@-moz-document url-prefix() {
+	p.insideAudio{
+		position: relative;
+		top: -0.3em;
 }

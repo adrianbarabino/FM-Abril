@@ -31,8 +31,8 @@ App.Views.ArticleView = Backbone.View.extend({
 
 	},
 	navigate: function () {
-		console.log("I do a click on ", this.model.get("titulo"));
-		Backbone.history.navigate('articulo/'+this.model.get("urltag")+'/', {trigger:true})
+		console.log("I do a click on ", this.model.get("title"));
+		Backbone.history.navigate('contenido/'+this.model.get("slug")+'/', {trigger:true})
 	},
 	render: function(data) {
 		var self = this;

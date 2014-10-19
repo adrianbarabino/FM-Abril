@@ -15,6 +15,9 @@ if($action){
 			if($id)
 				print_r(json_encode($content->getContent($id)));
 			break;
+		case 'getAllArticles':
+				print_r(json_encode($content->getAll()));
+			break;
 		
 		case 'getArticleIdBySlug':
 			# code...
