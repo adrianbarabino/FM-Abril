@@ -1,5 +1,5 @@
 <?php
-require_once './classes/Db.class.php';
+require_once(__DIR__.'/Db.class.php');
 
 // We need to use our $db variable (for mysqli) into the class
 

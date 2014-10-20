@@ -21,14 +21,17 @@ function subir_imagen($id)
 
 
 }
-function delete_table($table, $id, $nombre)
+function delete_table($table, $id, $name)
 {	
-				global $mysqli;
+				global $user;
+				switch ($table) {
+					case 'users':
 
-				$query_borrar = "delete from $table where id='$id'";
+						$user->remove($id);
+					break;
+				}
 
-				$mysqli->query($query_borrar);
-				echo $nombre . " ha sido borrado exitosamente de la base de datos, seras redireccionado en unos segundos";
+				echo $name . " ha sido borrado exitosamente de la base de datos, seras redireccionado en unos segundos";
 };
 
 function create_table($table, $fields)
@@ -206,12 +209,12 @@ echo $table;
 }elseif($_REQUEST['action'] == 'delete'){
 $id = $_REQUEST['id'];
 
-$nombre = $_REQUEST['nombre'];
+$name = $_REQUEST['name'];
 
-if(!isset($nombre)){
+if(!isset($name)){
 	"Elemento";
 }
-delete_table($table, $id, $nombre);
+delete_table($table, $id, $name);
 ?>
 <html>
 <head>

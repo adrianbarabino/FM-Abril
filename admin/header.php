@@ -18,10 +18,10 @@
 	<link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
 
 	 <script>
-	 // Cuando el documnto está listo, ejecutamos la función iniciar..
-	 $(document).on("ready", iniciar);
+	 // Cuando el documnto está listo, ejecutamos la función init..
+	 $(document).on("ready", init);
 
-	 function iniciar (info) {
+	 function init (info) {
 	 	$(document).on("click", "input[name=limpiar]", function () {
 	 		// Poner el valor de la mayoria de los campos en nada ("")
 	 		$("form > input").attr("value", "");
@@ -34,9 +34,9 @@
 	 	$('input[name="fecha"], input[name="fecha_ingreso"]').datetimepicker({ dateFormat: 'yy-mm-dd', timeFormat: 'hh:mm:ss' });
 
 
-		$(document).on("click", "#form-inicio span.chico", function () {
-	 		// Cuando hagamos click en SPAN con clase "chico" hacemos lo siguiente...
-			// $(this) es el elemento actual, osea: #form-inicio span.chico
+		$(document).on("click", "#form-home span.small", function () {
+	 		// Cuando hagamos click en SPAN con clase "small" hacemos lo siguiente...
+			// $(this) es el elemento actual, osea: #form-home span.small
 			// .parent() es el elemento padre, osea, el elemento superior a este.
 			if($(this).text() == "Registrar"){
 				$(this).parent().parent().find("#register").slideDown();
@@ -44,17 +44,17 @@
 			}
 			if( $(this).text() == "Ingresar"){
 				// Si el texto de este elemento es Ingresar hacemos que
-				// Buscamos el elemento padre, el h2, y hacemos lo mismo, y llegamos al section#form-inicio
+				// Buscamos el elemento padre, el h2, y hacemos lo mismo, y llegamos al section#form-home
 				// Ahi buscamos el elemento con ID register y lo ocultamos
 				// y con ingresar lo mostramos
 				
 				$(this).parent().parent().find("#register").slideUp();
 				$(this).parent().parent().find("#login").slideDown();		
 			}
-			$("span.activo").addClass("chico");
-			$("span.activo").removeClass("activo");
-			$(this).removeClass("chico");
-			$(this).addClass("activo");
+			$("span.active").addClass("small");
+			$("span.active").removeClass("active");
+			$(this).removeClass("small");
+			$(this).addClass("active");
 		})
 	 }
 	 </script>
@@ -65,4 +65,4 @@ tinymce.init({
 </script>
 </head>
 <body>
-	<section id="contenedor">
+	<section id="container">

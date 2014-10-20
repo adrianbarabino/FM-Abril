@@ -1,7 +1,7 @@
 
-<a href="./index.php?page=forms&action=create&table=users" class="create-new"><?php echo $boton_nuevo; ?></a>
+<a href="./index.php?page=forms&action=create&table=users" class="create-new"><?php echo $new_button; ?></a>
 
-<table id="listar_todos">
+<table id="list_all">
 	<thead>
 		<tr>
 			<td>ID</td>
@@ -11,14 +11,12 @@
 			<td>Rango</td>
 			<td>Contraseña</td>
 			<td>Ultima IP</td>
-			<td>action</td>
+			<td>Acción</td>
 		</tr>
 	</thead>
 	<tbody>
 		
 	<?php
-
-	// Consultamos los productos a nuestra base de datos
 
 	
 
@@ -36,8 +34,8 @@ if($resultado = $user->getAll()){
 				<td><?php echo $item["password"]; ?></td>
 				<td><?php echo $item["last_ip"]; ?></td>
 				<td>
-					<a href="./index.php?page=forms&action=edit&table=users&id=<?php echo $item['id']; ?>"><?php echo $boton_editar; ?></a>
-					<a href="./actions.php?action=delete&table=users&id=<?php echo $item['id']; ?>"><?php echo $boton_borrar; ?></a>
+					<a href="./index.php?page=forms&action=edit&table=users&id=<?php echo $item['id']; ?>"><?php echo $edit_button; ?></a>
+					<a href="./actions.php?action=delete&table=users&id=<?php echo $item['id']; ?>&name=<?php echo $item["username"]; ?>"><?php echo $delete_button; ?></a>
 
 				</td>
 			</tr>

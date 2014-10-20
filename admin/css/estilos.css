@@ -65,7 +65,7 @@ nav ul li a:hover:before{
 	color:white;
 }
 
-#contenedor{
+#container{
 	width:100%;
 	max-width:993px;
 	margin: 0 auto;
@@ -79,7 +79,7 @@ footer{
 	margin-top:0.8em;
 }
 
-h1.saludo{
+h1.welcome{
 	display: block;
 	color: #16a;
 	background: white;
@@ -87,51 +87,51 @@ h1.saludo{
 	font-weight: 200;
 	font-size: 2em;
 }
-h1.saludo small {
+h1.welcome small {
 font-size: 0.5em;
 }
 
 #ui-datepicker-div {font-size:13px;}
 
-#listar_todos{
+#list_all{
 	background: rgb(22, 62, 88);	
 	width: 100%;
 	text-align: center;	
 }
-#listar_todos thead{
+#list_all thead{
 	background: rgb(74, 154, 240);
 	font-weight: 600;
 
 }
-#listar_todos thead td {
+#list_all thead td {
 	padding: 0.4em;	
 }
 
-#listar_todos a{	
+#list_all a{	
 	color:white;	
 	color: rgb(0, 194, 255);
 	text-decoration: none;
 	padding: 0.2em;
 	line-height: 2em;
 }
-#listar_todos a:hover{
+#list_all a:hover{
 	color: white;
 }
-#listar_todos tbody td{
+#list_all tbody td{
 	transition: all 0.3s ease-in-out;
 }
-#listar_todos tbody tr:hover a{
+#list_all tbody tr:hover a{
 	text-shadow: none;
 }
-#listar_todos tbody tr:hover{
+#list_all tbody tr:hover{
 	text-shadow: 0 0 10px white;
 
 }
-#listar_todos tbody tr:nth-child(even) {
+#list_all tbody tr:nth-child(even) {
 background: rgba(0, 0, 0, 0.18);
 transition: all 0.3s ease-in-out;
 }
-#listar_todos tbody tr:nth-child(even):hover {
+#list_all tbody tr:nth-child(even):hover {
 background: transparent;
 }
 form input{
@@ -151,29 +151,29 @@ h1{
     color:white;
     padding: 0.3em;
 }
-#form-inicio{
+#form-home{
     width: 50%;  margin: 1em auto;  background: #fff;  color: #16a!important;
     padding: 0.5em;
     text-align: center;
 }
-#form-inicio h2 {
+#form-home h2 {
     text-align: center;
     background: #16a;
     margin: 0 0 0.5em 0;
     color:white;
     padding: 0.3em;
 }
-#form-inicio input{
+#form-home input{
     display: block;
     width: 90%;
     border: 3px solid rgba(0, 0, 0, 0.41) !important;
     margin: 0.5em 0;
     display: inline-block;
 }
-#form-inicio form{
+#form-home form{
     text-align: center;
 }
-#form-inicio input[type="submit"]{
+#form-home input[type="submit"]{
     width: 97%;
     font-weight: 200;
     color: white;
@@ -182,32 +182,32 @@ h1{
     cursor: pointer;
 }
 
-.sinlogear{
+.guest{
 	padding: 0.2em;
 	color: white;		
 	font-size: 1em;
 	text-align: center;	
 }
 
-#form-inicio h2 span.chico{
+#form-home h2 span.small{
 	font-size:0.6em;
 	color:#ddd;
 	cursor: pointer;
 }
-#form-inicio h2 span.activo{
+#form-home h2 span.activo{
 	font-size:1em;
 	cursor: pointer;
 }
-span.chico:hover{
+span.small:hover{
 	color: #fff;
 }
-#form-inicio h2 span{
+#form-home h2 span{
 	transition: all 0.3s ease-in-out;
 }
 input:-webkit-autofill{
     background-color: #fff !important;
 }
-.accion label{
+.action label{
 	padding: 0.2em;
 	color: white;
 	display: inline-block;	
@@ -215,26 +215,26 @@ input:-webkit-autofill{
 	margin: 1em 0;
 
 }
-form.accion {
+form.action {
 	text-align: left;
 	width: 60%;
 
 }
-.accion select, .accion input{
+.action select, .action input{
 	padding: 0.3em;
 	font-size: 1em;	
 	float:right;
 	margin: 0.8em 0;
 	
 }
-form.accion label[for=descripcion]{
+form.action label[for=descripcion]{
 	font-size:1.8em;
 	display:block;
 	text-align: center;
 	margin-bottom:0.5em;
 }
 
-form.accion input[type=submit],form.accion input[name=limpiar]{
+form.action input[type=submit],form.action input[name=limpiar]{
 display: block;
 float: none;
 width: 100%;
@@ -246,13 +246,13 @@ font-weight: 200;
 
 transition: all 0.3s ease-in-out;
 }
-form.accion input[type=submit]:hover,form.accion input[name=limpiar]:hover{
+form.action input[type=submit]:hover,form.action input[name=limpiar]:hover{
 	background: rgba(0,0,0,0.5);
 	color:white;
 }
 
 
-form.accion input, form.accion select{
+form.action input, form.action select{
 	font-family: "Open Sans", arial;
 }
 

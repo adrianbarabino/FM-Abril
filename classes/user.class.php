@@ -1,6 +1,6 @@
 <?php
 
-require_once './classes/Misc.class.php';
+require_once(__DIR__.'/Misc.class.php');
 
 class User extends Misc 
 {
@@ -55,12 +55,33 @@ class User extends Misc
                 return false;
         }   
     }
+
+    public function getAll()
+    {
+
+
+        $result = $this->_db->advancedSelect("users U", array("U.*"));
+        $allUsers = array();
+        while ($row = $result->fetch_assoc()) {
+        $userData = array(
+            "id" => $row['id'],
+            "username" => $row['username'],
+            "fullname" => $row['fullname'],
+            "email" => $row['email'],
+            "rank" => $row['rank'],
+            "last_ip" => $row['last_ip'],
+            "password" => $row['password'],
+            );     
+            array_push($allUsers, $userData);
+        }
+        return $allUsers;
+
+    }
     public function getUserData($userid)
     {
 
-        $sql = sprintf("SELECT U.* FROM users U
-        WHERE U.id = '%s' ", $userid);
-        $result = $this->_db->raw->query($sql); 
+        $result = $this->_db->advancedSelect("users U", array("U.*"), array(array("U.id", "=", $userid)));
+
         if($row = $result->fetch_assoc()){
         $userData = array(
             "id" => $row['id'],
@@ -84,7 +105,7 @@ class User extends Misc
 
         if($userid){
 
-            if($this->getRank($userid) > 0){
+            if($this->getRank($userid) > 1){
                 return true;
             }else{
                 return false;
@@ -105,7 +126,7 @@ class User extends Misc
         }       
     }
 
-    private function getFullname($userid = NULL){
+    public function getFullname($userid = NULL){
         if($userid == NULL)
             $userid = $this->getCurrentUser();
 
@@ -139,15 +160,11 @@ class User extends Misc
         }
     }
 
-    public function isExist($userid = NULL)
+    public function isExist($userId)
     {
 
-        if($userid == NULL)
-            $userid = $this->getCurrentUser();
-        if($userid == 0)
-            return true;
-
-        return true;
+        $result = $this->_db->simpleSelect("users U", "U.id", array("id", "=", $userId));
+        return $this->_db->haveRows($result);
     }
     public function remove($id_user)
     {
@@ -176,22 +193,54 @@ class User extends Misc
                     "rank" => $this->getRank($this->getUserId($user)) 
                 );
 
-                $login_array = urlencode(json_encode($login_array));
+                $login_array_cookie = urlencode(json_encode($login_array));
                 $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
-                setcookie("userLogged", $login_array, time()+72000, '/', $domain, false);
+                setcookie("userLogged", $login_array_cookie, time()+72000, '/', $domain, false);
                 return $login_array;
                 
             }else{
-                die("Wrong user/password combination !");
+                return "ERROR: Wrong user/password combination !";
             }
         }else{
-            die("You are already logged !! Please log out for login again");
+            return "ERROR: You are already logged !! Please log out for login again";
         }
     }
 
-    public function editUser($id, $username, $pwd, $fullname, $email, $rank)
+    public function editUser($id, $username, $email, $fullname, $rank, $last_ip = NULL, $password = NULL)
     {
-        # code...
+
+        $id_user = intval($id);
+        $userData = $this->getUserData($id_user);
+        if($last_ip == NULL)
+            $last_ip = $userData['last_ip'];
+
+        if($password == NULL)
+        {
+            $password = $userData['password'];            
+        }else{
+
+            $password = $this->hashPwd($password);
+        }
+
+
+        $array_values = array(
+            "id" => $id,
+            "username" => $username,
+            "email" => $email,
+            "fullname" => $fullname,
+            "rank" => $rank,
+            "last_ip" => $last_ip,
+            "password" => $password
+            );
+
+        $where_array = array("id", "=", $id);
+        if($this->_db->updateToDB("users", $array_values, $where_array)){
+            // User update sucefully ! 
+            return true;
+        }else{
+            // Error
+            die("Error updating the User!");
+        }
     }
     public function logout($id = NULL)
     {
@@ -199,7 +248,7 @@ class User extends Misc
                 setcookie("userLogged", "x", time()-3600, '/', $domain, false);
     }
 
-    public function register($username, $pwd, $email, $fullname, $rank = 0)
+    public function register($username, $pwd, $email, $fullname, $rank = 0, $login = false)
     {
         if($this->checkMailFree($email))
         {
@@ -215,10 +264,14 @@ class User extends Misc
                         "last_ip" => $_SERVER['REMOTE_ADDR'],
                     );
                     if($id_reg = $this->_db->insertToDB("users", $array_values)){
+                        
+                        if($login){
+                            $this->login($username, $password);
+                        }
                         return $id_reg;
+
                     }else{
                         return false;
-                        die("Error!");
                     }
 
 

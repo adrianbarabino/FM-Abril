@@ -24,7 +24,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
 	{
 
 		$titulo = "Procesando datos";
-		require("./cabecera.php");
+		require("./header.php");
 				// Segun el valor de la variable VALOR mostramos el mensaje acorde.
 
 				echo '<h1><i class="icon-info-sign icon-large"></i> ';
@@ -96,7 +96,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
 
 			$username = $user->cleanString($_POST['username']);
 			$password = $user->cleanString($_POST['password']); 
-
+			
 				if(is_array($user->login($username, $password)))
 
 					{
@@ -121,13 +121,13 @@ if($action == "login" || $action == "register" || $action == "logout"){
 
 		if(trim($_POST['email']) != "" && trim($_POST['password']) != "" && trim($_POST['fullname']) != "" && trim($_POST['username']) != ""){
 
-			$email = remover_etiquetas($_POST['email']);
-			$password = remover_etiquetas($_POST['password']);
-			$username = remover_etiquetas($_POST['username']);
-			$fullname = remover_etiquetas($_POST['fullname']);
+			$email = $user->cleanString($_POST['email']);
+			$password = $user->cleanString($_POST['password']);
+			$username = $user->cleanString($_POST['username']);
+			$fullname = $user->cleanString($_POST['fullname']);
 
 			if (preg_match($regex, $email)) {
-				if(is_array($user->register($username, $pwd, $email, $fullname, 0)))
+				if($user->register($username, $pwd, $email, $fullname, 1, true))
 				{
 
 					mostrar_mensaje("registro_ok");
@@ -148,7 +148,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
         $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
         setcookie("userLogged", "x", time()-3600, '/', $domain, false);
 
-		mostrar_mensaje('salir');
+		mostrar_mensaje('logout');
 
 	}
 
