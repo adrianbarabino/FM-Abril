@@ -1,42 +1,43 @@
-<a href="./index.php?pagina=formularios&accion=crear&tabla=item" class="crear-nuevo"><?php echo $boton_nuevo; ?></a>
 
-<table id="listar_todos">
+<a href="./index.php?page=forms&action=create&table=content" class="create-new"><?php echo $new_button; ?></a>
+
+<table id="list_all">
 	<thead>
 		<tr>
 			<td>ID</td>
-			<td>Categoría</td>
-			<td>Nombre</td>
-			<td>Descripción</td>
-			<td>Fecha Creado</td>
-			<td>Disponibles</td>
-			<td>Precio</td>
-			<td>Accion</td>
+			<td>Categoria</td>
+			<td>Autor</td>
+			<td>Titulo</td>
+			<td>Contenido (Corto)</td>
+			<td>Fecha</td>
+			<td>Tags</td>
+			<td>Slug</td>
+			<td>Acción</td>
 		</tr>
 	</thead>
 	<tbody>
 		
 	<?php
 
-	// Consultamos los productos a nuestra base de datos
+	
 
-	$consulta = "SELECT I.*, C.nombre as categoria FROM item I INNER JOIN categorias C ON I.id_categoria = C.id ORDER BY id DESC";
+if($resultado = $content->getAll()){
+	foreach ($resultado as $key => $item) {
 
-
-if($resultado = $mysqli->query($consulta)){
-	while ($item = $resultado->fetch_array()) {
 
 			?>
 			<tr>
 				<td><?php echo $item["id"]; ?></td>
-				<td><?php echo $item["categoria"]; ?></td>
-				<td><?php echo $item["nombre"]; ?></td>
-				<td><?php echo strip_tags($item["descripcion"]); ?></td>
-				<td><?php echo $item["fecha_ingreso"]; ?></td>
-				<td><?php echo $item["disponibles"]; ?></td>
-				<td><?php echo $item["precio"]; ?></td>
+				<td><?php echo $item["category"]; ?></td>
+				<td><?php echo $item["author"]; ?></td>
+				<td><?php echo $item["title"]; ?></td>
+				<td><?php echo $item["short_content"]; ?></td>
+				<td><?php echo $item["date"]; ?></td>
+				<td><?php echo $item["tags"]; ?></td>
+				<td><?php echo $item["slug"]; ?></td>
 				<td>
-					<a href="./index.php?pagina=formularios&accion=editar&tabla=item&id=<?php echo $item['id']; ?>"><?php echo $boton_editar; ?></a>
-					<a href="./acciones.php?accion=borrar&tabla=item&id=<?php echo $item['id']; ?>"><?php echo $boton_borrar; ?></a>
+					<a href="./index.php?page=forms&action=edit&table=content&id=<?php echo $item['id']; ?>"><?php echo $edit_button; ?></a>
+					<a href="./actions.php?action=delete&table=content&id=<?php echo $item['id']; ?>&name=<?php echo $item["username"]; ?>"><?php echo $delete_button; ?></a>
 
 				</td>
 			</tr>

@@ -7,23 +7,31 @@ require("../data/connection.php");
 require("../classes/User.class.php");
 
 $user = new User;
+
+
+require("../classes/Content.class.php");
+
+$content = new Content;
+
+
 if($user->isLogged()){
 	if($user->isAdmin()){
 
 
-function subir_imagen($id)
+function upload_image($id)
 {
 	// Incluyo la librería WideImage
 	require("./lib/WideImage.php");
 	// Cargo la imagen, la redimensiono y la guardo.
-	WideImage::load($_FILES["imagen"]["tmp_name"])->resize(600, 600)->saveToFile("../imagenes/$id.jpg");
-	WideImage::load($_FILES["imagen"]["tmp_name"])->resize(200, 150)->saveToFile("../imagenes/thumb/$id.jpg");
+	// WideImage::load($_FILES["image"]["tmp_name"])->resize(600, 600)->saveToFile("../uploads/image/posts/$id.jpg");
+	// WideImage::load($_FILES["image"]["tmp_name"])->resize(200, 150)->saveToFile("../uploads/image/posts/thumb/$id.jpg");
 
 
 }
 function delete_table($table, $id, $name)
 {	
 				global $user;
+
 				switch ($table) {
 					case 'users':
 
@@ -37,6 +45,7 @@ function delete_table($table, $id, $name)
 function create_table($table, $fields)
 {
 				global $user;
+				global $content;
 
 				// Serialize nos sirve para poder convertir un array en una cadena de texto...
 				// Unserialize es para decifrar y poder volver esa cadena de texto en un array...
@@ -44,25 +53,15 @@ function create_table($table, $fields)
 				$fields = unserialize($fields);
 				switch ($table) {
 					case 'content':
-								$nombre      = $fields['nombre'];
-								$descripcion = $fields['descripcion'];
-								$id_categoria = $fields['id_categoria'];
-								$fecha_ingreso   = $fields['fecha_ingreso'];
-								$disponibles     = $fields['disponibles'];
-								$precio    = $fields['precio'];
+								$title      = $fields['title'];
+								$content = $fields['content'];
+								$id_cat = $fields['id_cat'];
+								$date   = $fields['date'];
+								$id_author     = $fields['id_author'];
+								$slug    = $fields['slug'];
+								$tags    = $fields['tags'];
 
-								$create_query = "insert into $table (nombre,id_categoria,fecha_ingreso,descripcion,disponibles,precio) VALUES ('$nombre','$id_categoria','$fecha_ingreso','$descripcion','$disponibles','$precio')";
-								
-					break;
-					case 'compras':
-								$id_usuario      = $fields['id_usuario'];
-								$descripcion = $fields['descripcion'];
-								$id_content = $fields['id_content'];
-								$tipo_pago   = $fields['tipo_pago'];
-								$id_estado     = $fields['id_estado'];
-								$fecha    = $fields['fecha'];
-
-								$create_query = "insert into $table (id_usuario,tipo_pago,fecha,descripcion,id_content,id_estado) VALUES ('$id_usuario','$tipo_pago','$fecha','$descripcion','$id_content','$id_estado')";
+								return $content->newContent($id_cat, $id_author, $title, $content, $tags, $slug, $date);
 								
 					break;
 					case 'users':
@@ -92,7 +91,7 @@ function create_table($table, $fields)
 }
 function edit_table($table, $id, $fields)
 {
-	global $user;
+	global $user, $content;
 
 				// Serialize nos sirve para poder convertir un array en una cadena de texto...
 				// Unserialize es para decifrar y poder volver esa cadena de texto en un array...
@@ -100,15 +99,15 @@ function edit_table($table, $id, $fields)
 				$fields = unserialize($fields);
 				switch ($table) {
 					case 'content':
-								$nombre      = $fields['nombre'];
-								$descripcion = $fields['descripcion'];
-								$id_categoria = $fields['id_categoria'];
-								$fecha_ingreso   = $fields['fecha_ingreso'];
-								$disponibles     = $fields['disponibles'];
-								$precio    = $fields['precio'];
+								$title      = $fields['title'];
+								$content2 = $fields['content'];
+								$id_cat = $fields['id_cat'];
+								$date   = $fields['date'];
+								$id_author     = $fields['id_author'];
+								$slug    = $fields['slug'];
+								$tags    = $fields['tags'];
 
-								$update_query = "update $table set nombre='$nombre',descripcion='$descripcion',id_categoria='$id_categoria',fecha_ingreso='$fecha_ingreso',disponibles='$disponibles',precio='$precio' WHERE id = '$id'";
-
+								return $content->editContent($id, $id_cat, $id_author, $title, $content2, $tags, $slug, $date);
 								
 					break;
 					case 'users':
@@ -121,7 +120,6 @@ function edit_table($table, $id, $fields)
 
 								if($password == "no-edit"){
 									$user->editUser($id, $username, $email, $fullname, $rank);
-									print_r($fullname);
 								}else{
 									$user->editUser($id, $username, $email, $fullname, $rank, NULL, $password);
 									
@@ -151,7 +149,7 @@ if ($_REQUEST['action'] == 'edit') {
 $id = $_REQUEST['id'];
 
 if($_FILES){
-	subir_imagen($id);
+	upload_image($id);
 }
 
 edit_table($table, $id, serialize($_REQUEST));
@@ -183,7 +181,7 @@ echo $table;
 $id = create_table($table, serialize($_REQUEST));
 
 if($_FILES){
-	subir_imagen($id);
+	upload_image($id);
 }
 ?>
 <!doctype html>

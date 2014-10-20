@@ -1,6 +1,6 @@
 <?php
 
-require_once './classes/Misc.class.php';
+require_once(__DIR__.'/Misc.class.php');
 
 
 class Category extends Misc {
@@ -12,6 +12,23 @@ class Category extends Misc {
 		$result = $this->_db->simpleSelect("categories C", "C.id", array("id", "=", $id_category));
 		return $this->_db->haveRows($result);
 		
+    }
+    public function getAll()
+    {
+    	$allCategories = array();
+
+        $result = $this->_db->advancedSelect("categories C", array("C.*"));
+        while ($row = $result->fetch_assoc()) {
+        	$categoryData = array(
+        		"id" => $row['id'],
+        		"name" => $row['name'],
+        		"description" => $row['description']
+        	);
+        	array_push($allCategories, $categoryData);
+    	}
+
+    	return $allCategories;
+
     }
     public function getData($id_category)
     {
@@ -26,7 +43,7 @@ class Category extends Misc {
 	        	);
         	}
 
-        	return json_encode($categoryData);
+        	return $categoryData;
     	}else{
     		die("Category doesn't exist!");
     	}

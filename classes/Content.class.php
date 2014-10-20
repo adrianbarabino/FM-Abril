@@ -1,6 +1,6 @@
 <?php
 
-require_once './classes/Misc.class.php';
+require_once(__DIR__.'/Misc.class.php');
 
 // ToDo list:
 // Verify variables 
@@ -50,6 +50,7 @@ class Content extends Misc {
 			"author" => $row['fullname'],
 			"title" => $row['title'],
 			"content" => $this->cleanContent($row['content']),
+			"raw_content" => $row['content'],
 			"date" => $row['date'],
 			"tags" => $row['tags'],
 			"slug" => $row['slug']
@@ -112,7 +113,7 @@ class Content extends Misc {
  		$id_content = intval($id_content);
 		
 		$array_values = array(
-			"id" => $id,
+			"id" => $id_content,
 			"id_cat" => $id_cat,
 			"id_author" => $id_author,
 			"title" => $title,

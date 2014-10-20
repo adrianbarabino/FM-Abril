@@ -20,38 +20,38 @@ if($action == "login" || $action == "register" || $action == "logout"){
 
 
 
-	function mostrar_mensaje($valor)
+	function show_message($value)
 	{
 
-		$titulo = "Procesando datos";
+		$title = "Procesando datos";
 		require("./header.php");
-				// Segun el valor de la variable VALOR mostramos el mensaje acorde.
+				// Segun el valor de la variable value mostramos el mensaje acorde.
 
 				echo '<h1><i class="icon-info-sign icon-large"></i> ';
-				switch($valor){
+				switch($value){
 
 				case "logout":
 					echo "Has salido satisfactoriamente";
 				break;
-				case "ingreso_no_existe":
+				case "login_not_exist":
 					echo "El email no existe en la base de datos";
 				break;
-				case "ingreso_fail_pwd":
+				case "fail_login_pwd":
 					echo "Contraseña Incorrecta";
 				break;
-				case "email_incorrecto":
+				case "wrong_mail":
 					echo "El email ingresado no es válido";
 				break;
-				case "ingreso_ok":
+				case "login_ok":
 					echo "Has ingresado satisfactoriamente";
 				break;
-				case "registro_duplicado":
+				case "duplicated_register":
 					echo "Ya hay otro usuario con ese email";
 				break;
-				case "registro_ok":
+				case "register_ok":
 					echo "Te registraste satisfactoriamente";
 				break;
-				case "campos_vacios":
+				case "empty_fields":
 					echo "No llenaste todos los campos";
 				break;
 				}
@@ -61,7 +61,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
 
 			?>
 				<script>
-				function ir_home () {
+				function go_home () {
 					<?php
 					if(isset($_POST['callback'])){
 						?>
@@ -76,7 +76,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
 					}
 					?>
 				}
-				setTimeout(ir_home, 2000);
+				setTimeout(go_home, 2000);
 				</script>
 			</section>
 
@@ -101,7 +101,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
 
 					{
 
-						mostrar_mensaje("ingreso_ok");
+						show_message("login_ok");
 
 					}
 					else
@@ -109,10 +109,10 @@ if($action == "login" || $action == "register" || $action == "logout"){
 						// SI la contraseña no coincide con el email del usuario, le decimos que puso mal su Contraseña...
 						// WTF? no anda bien...
 
-						mostrar_mensaje("ingreso_fail_pwd");
+						show_message("fail_login_pwd");
 					}
 		}else{
-			mostrar_mensaje("campos_vacios");
+			show_message("empty_fields");
 		}
 
 	}
@@ -130,14 +130,14 @@ if($action == "login" || $action == "register" || $action == "logout"){
 				if($user->register($username, $pwd, $email, $fullname, 1, true))
 				{
 
-					mostrar_mensaje("registro_ok");
+					show_message("register_ok");
 				}
 			}else{
-				mostrar_mensaje("email_incorrecto");
+				show_message("wrong_mail");
 			}
 
 		}else{
-			mostrar_mensaje("campos_vacios");
+			show_message("empty_fields");
 		}
 
 	}
@@ -148,7 +148,7 @@ if($action == "login" || $action == "register" || $action == "logout"){
         $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
         setcookie("userLogged", "x", time()-3600, '/', $domain, false);
 
-		mostrar_mensaje('logout');
+		show_message('logout');
 
 	}
 

@@ -25,85 +25,32 @@ if(!isset($table)){
 
 	switch($table){
 
-		case "item":
-		$consulta = "SELECT * FROM item WHERE id = ".$id." LIMIT 0,1";
-		$consulta_db = $mysqli->query($consulta);
+		case "content":
+		if($content->isExist($id)){
+			if($result = $content->getContent($id)){
+				$id_cat = $result['id_cat'];
+				$id_author = $result['id_author'];
+				$title = $result['title'];
+				$content = $result['raw_content'];
+				$date = $result['date'];
+				$tags = $result['tags'];
+				$slug = $result['slug'];
+			}
 
-		if($resultado = $consulta_db->fetch_assoc()){
-		
-		$nombre = $resultado['nombre'];
-		$descripcion = $resultado['descripcion'];
-		$fecha_ingreso = $resultado['fecha_ingreso'];
-		$disponibles = $resultado['disponibles'];
-		$precio = $resultado['precio'];
-		$id_categoria = $resultado['id_categoria'];
 
 		}else{
-		$nombre = '';
-		$descripcion = '';
-		$fecha_ingreso = date("Y-m-d H:i:s");
-		$disponibles = '';
-		$precio = '';
-		$id_categoria = '0';
-
+			$id_cat = '';
+			$id_author = '';
+			$title = '';
+			$content = '';
+			$date = date("Y-m-d H:i:s");
+			$tags = '';
+			$slug = '';
 		}
 
 		break;
 
-		case "categorias":
-		$consulta = "SELECT * FROM categorias WHERE id = ".$id." LIMIT 0,1";
-		$consulta_db = $mysqli->query($consulta);
-
-		if($resultado = $consulta_db->fetch_assoc()){
-		
-		$nombre = $resultado['nombre'];
-
-
-		}else{
-		$nombre = '';
-
-
-		}
-
-		break;	
-
-		case "estados":
-		$consulta = "SELECT * FROM estados WHERE id = ".$id." LIMIT 0,1";
-		$consulta_db = $mysqli->query($consulta);
-
-		if($resultado = $consulta_db->fetch_assoc()){
-		
-		$nombre = $resultado['nombre'];
-
-
-		}else{
-		$nombre = '';
-
-
-		}
-
-		break;	
-
-		case "tipo_pago":
-		$consulta = "SELECT * FROM tipo_pago WHERE id = ".$id." LIMIT 0,1";
-		$consulta_db = $mysqli->query($consulta);
-
-		if($resultado = $consulta_db->fetch_assoc()){
-		
-		$nombre = $resultado['nombre'];
-
-
-		}else{
-		$nombre = '';
-
-
-		}
-
-		break;	
-
 		case "users":
-
-
 		if($user->isExist($id)){
 			if($result = $user->getUserData($id)){
 				$username = $result['username'];
@@ -118,13 +65,11 @@ if(!isset($table)){
 
 
 		}else{
-		$username = '';
-		$fullname = '';
-		$email = '';
-		$rank = '';
-		$password = '';
-
-
+			$username = '';
+			$fullname = '';
+			$email = '';
+			$rank = '';
+			$password = '';
 		}
 
 		break;
@@ -165,43 +110,42 @@ if(!isset($table)){
 
 	switch($table){
 
-		case "item":
+		case "content":
 		?>
 		
-		<form enctype="multipart/form-data" action="./actions.php" id="formulario" method="POST" class="action">
-			<input type="file" name="imagen" id="imagen">
+		<form enctype="multipart/form-data" action="./actions.php" id="formulario" method="GET" class="action">
+			<input type="file" name="image" id="image">
 			<?php if($action == "edit"){ ?>
 			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
 			<?php } ?>
 			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
 			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
-			<br><label for="nombre">Nombre:</label>
-			<input name="nombre" id="nombre" type="text" value="<?php echo $nombre; ?>">
-			<br><label for="descripcion">Descripcion:</label>
-			<textarea name="descripcion" id="descripcion" type="text"><?php echo $descripcion; ?></textarea>
-			<br><label for="categoria">Categoría:</label>
-			<select name="id_categoria" id="categoria">
+			<br><label for="title">Titulo:</label>
+			<input name="title" id="title" type="text" value="<?php echo $title; ?>">
+			<br><label for="slug">Slug:</label>
+			<input name="slug" id="slug" type="text" value="<?php echo $slug; ?>">			
+			<br><label for="tags">Etiquetas:</label>
+			<input name="tags" id="tags" type="text" value="<?php echo $tags; ?>">
+			<br><label for="content">Contenido:</label>
+			<textarea name="content" id="content" type="text"><?php echo $content; ?></textarea>
+			<br><label for="category">Categoría:</label>
+			<select name="id_cat" id="category">
 			<?php
-	$consulta_categorias = "SELECT * FROM categorias ORDER BY id DESC";
 
 
-if($resultado_categorias = $mysqli->query($consulta_categorias)){
-	while ($categoria = $resultado_categorias->fetch_array()) {
+if($result = $category->getAll()){
+	foreach ($result as $key => $item) {
 		?>
 
-    <option <?php if($id_categoria == $categoria['id']){?> selected="selected" <?php }; ?> value="<?php echo $categoria['id'];?>"><?php echo $categoria['nombre'];?></option>
+    <option <?php if($id_cat == $item['id']){?> selected="selected" <?php }; ?> value="<?php echo $item['id'];?>"><?php echo $item['name'];?></option>
 <?php
 }
 }
 ?>
 
 			</select>
-			<br><label for="fecha_ingreso">Fecha Ingresado:</label>
-			<input name="fecha_ingreso" id="fecha_ingreso" type="text" value="<?php echo $fecha_ingreso; ?>">
-			<br><label for="disponibles">Disponibles:</label>
-			<input name="disponibles" id="disponibles" placeholder="Ejemplo: 84" type="text" value="<?php echo $disponibles; ?>">
-			<br><label for="precio">Precio:</label>
-			<input name="precio" placeholder="Ejemplo: 10.99" id="precio" type="text"value="<?php echo $precio; ?>">
+			<br><label for="date">Fecha:</label>
+			<input name="date" id="date" type="text" value="<?php echo $date; ?>">
 			<input name="enviar" type="submit" value="enviar">
 			<input name="limpiar" type="button" value="limpiar">
 		</form>
@@ -209,7 +153,7 @@ if($resultado_categorias = $mysqli->query($consulta_categorias)){
 		<?php
 		
 		break;
-	case "categorias":
+	case "categories":
 		?>
 		
 		<form action="./actions.php" id="formulario" method="POST" class="action">

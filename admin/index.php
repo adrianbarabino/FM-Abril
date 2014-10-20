@@ -9,6 +9,14 @@ require("../classes/User.class.php");
 
 $user = new User;
 
+require("../classes/Content.class.php");
+
+$content = new Content;
+
+require("../classes/Category.class.php");
+
+$category = new Category;
+
 // ./ se refiere a la carpeta actual, ../ se refiere a la carpeta padre, ../.. dos niveles arriba y asi sucesivamente. y si usamos / solo, refiere a la carpeta raiz
 
 if(isset($_GET['page'])){

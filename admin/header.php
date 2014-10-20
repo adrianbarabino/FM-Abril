@@ -31,7 +31,7 @@
 	 	})
 	 	// A todos los input que tengan name fecha y fecha ingreso los convertimos en un objeto DateTimePicker
 
-	 	$('input[name="fecha"], input[name="fecha_ingreso"]').datetimepicker({ dateFormat: 'yy-mm-dd', timeFormat: 'hh:mm:ss' });
+	 	$('input[name="fecha"], input[name="date"]').datetimepicker({ dateFormat: 'yy-mm-dd', timeFormat: 'hh:mm:ss' });
 
 
 		$(document).on("click", "#form-home span.small", function () {
@@ -59,8 +59,27 @@
 	 }
 	 </script>
 	<script type="text/javascript">
+	tinymce.PluginManager.add('toolbarplugin', function(editor, url) {
+    editor.addButton('toolbarplugin',
+        {title       : 'my plugin button',
+         image       : url + '/img/toolbarplugin.png',
+         onclick     : function() { alert('Clicked!');}});
+});
+
 tinymce.init({
-    selector: "textarea"
+    selector: "textarea",
+    theme: "modern",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor"
+    ],
+    pagebreak_separator: "[readmore]",
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+    toolbar2: "  link image | media | forecolor backcolor emoticons | pagebreak",
+    image_advtab: true
+
  });
 </script>
 </head>
