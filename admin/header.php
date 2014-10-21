@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
 	<!-- Añadimos el TinyMCE, el editor WYSIWYG -->
-	<script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+	<script src="./js/tinymce/tinymce.min.js"></script>
 	<!-- Incluimos jQuery y jQueryUI -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -73,11 +73,11 @@ tinymce.init({
         "advlist autolink lists link image charmap print preview hr anchor pagebreak",
         "searchreplace wordcount visualblocks visualchars code fullscreen",
         "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor"
+        "emoticons template paste textcolor youtube"
     ],
     pagebreak_separator: "[readmore]",
     toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-    toolbar2: "  link image | media | forecolor backcolor emoticons | pagebreak",
+    toolbar2: "  link image | media youtube | forecolor backcolor emoticons | pagebreak",
     image_advtab: true
 
  });

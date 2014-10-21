@@ -13,6 +13,10 @@ require("../classes/Content.class.php");
 
 $content = new Content;
 
+require("../classes/Category.class.php");
+
+$category = new Category;
+
 
 if($user->isLogged()){
 	if($user->isAdmin()){
@@ -30,12 +34,20 @@ function upload_image($id)
 }
 function delete_table($table, $id, $name)
 {	
-				global $user;
+				global $user, $content, $category;
 
 				switch ($table) {
 					case 'users':
 
 						$user->remove($id);
+					break;
+					case 'content':
+
+						$content->deleteContent($id);
+					break;
+					case 'categories':
+
+						$category->deleteCategory($id);
 					break;
 				}
 
@@ -44,8 +56,7 @@ function delete_table($table, $id, $name)
 
 function create_table($table, $fields)
 {
-				global $user;
-				global $content;
+				global $user, $content, $category;
 
 				// Serialize nos sirve para poder convertir un array en una cadena de texto...
 				// Unserialize es para decifrar y poder volver esa cadena de texto en un array...
@@ -54,14 +65,14 @@ function create_table($table, $fields)
 				switch ($table) {
 					case 'content':
 								$title      = $fields['title'];
-								$content = $fields['content'];
+								$content2 = $fields['content'];
 								$id_cat = $fields['id_cat'];
 								$date   = $fields['date'];
 								$id_author     = $fields['id_author'];
 								$slug    = $fields['slug'];
 								$tags    = $fields['tags'];
 
-								return $content->newContent($id_cat, $id_author, $title, $content, $tags, $slug, $date);
+								return $content->newContent($id_cat, $id_author, $title, $content2, $tags, $slug, $date);
 								
 					break;
 					case 'users':
@@ -73,17 +84,11 @@ function create_table($table, $fields)
 								return $user->register($username, $password, $email, $fullname, $rank);
 								
 					break;
-					case 'categorias':
-								$nombre      = $fields['nombre'];
-								$create_query = "insert into $table (nombre) VALUES ('$nombre')";
-					break;
-					case 't_pagos':
-								$nombre      = $fields['nombre'];
-								$create_query = "insert into $table (nombre) VALUES ('$nombre')";
-					break;
-					case 'estados':
-								$nombre      = $fields['nombre'];
-								$create_query = "insert into $table (nombre) VALUES ('$nombre')";
+					case 'categories':
+								$name      = $fields['name'];
+								$description      = $fields['description'];
+								$slug      = $fields['slug'];
+								return $category->newCategory($name, $description, $slug);
 					break;
 
 				}
@@ -91,7 +96,7 @@ function create_table($table, $fields)
 }
 function edit_table($table, $id, $fields)
 {
-	global $user, $content;
+	global $user, $content, $category;
 
 				// Serialize nos sirve para poder convertir un array en una cadena de texto...
 				// Unserialize es para decifrar y poder volver esa cadena de texto en un array...
@@ -126,9 +131,11 @@ function edit_table($table, $id, $fields)
 								}
 
 					break;
-					case 'categorias':
-								$nombre      = $fields['nombre'];
-								$update_query = "update $table set nombre='$nombre' WHERE id = '$id'";
+					case 'categories':
+								$name      = $fields['name'];
+								$description      = $fields['description'];
+								$slug      = $fields['slug'];
+								return $category->editCategory($id, $name, $description, $slug);
 					break;
 
 				}

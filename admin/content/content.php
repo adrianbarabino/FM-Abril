@@ -37,7 +37,7 @@ if($resultado = $content->getAll()){
 				<td><?php echo $item["slug"]; ?></td>
 				<td>
 					<a href="./index.php?page=forms&action=edit&table=content&id=<?php echo $item['id']; ?>"><?php echo $edit_button; ?></a>
-					<a href="./actions.php?action=delete&table=content&id=<?php echo $item['id']; ?>&name=<?php echo $item["username"]; ?>"><?php echo $delete_button; ?></a>
+					<a href="./actions.php?action=delete&table=content&id=<?php echo $item['id']; ?>&name=<?php echo $item["title"]; ?>"><?php echo $delete_button; ?></a>
 
 				</td>
 			</tr>

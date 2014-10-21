@@ -1,6 +1,6 @@
 	</section>
 	<footer>
-		<span>2013 &copy;</span>
+		<span>2014 &copy; <?php echo $config["web_title"]; ?> </span>
 	</footer>
 	
 </body>

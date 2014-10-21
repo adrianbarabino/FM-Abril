@@ -137,6 +137,31 @@ class User extends Misc
             die("User doesn't exist!");
         }       
     }
+    private function updateIp($userid = NULL, $last_ip = NULL)
+    {
+
+        if($userid == NULL)
+            $userid = $this->getCurrentUser();
+
+        if($last_ip == NULL)
+            $last_ip = $_SERVER['REMOTE_ADDR'];
+
+
+
+        $array_values = array(
+            "last_ip" => $last_ip
+            );
+
+        $where_array = array("id", "=", $userid);
+        if($this->_db->updateToDB("users", $array_values, $where_array)){
+            // User update sucefully ! 
+            return true;
+        }else{
+            // Error
+            die("Error updating the Last IP!");
+        }
+
+    }
     private function getUserId($username)
     {
         $result = $this->_db->simpleSelect("users", "id", array("username", "=", $username));
@@ -196,6 +221,7 @@ class User extends Misc
                 $login_array_cookie = urlencode(json_encode($login_array));
                 $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
                 setcookie("userLogged", $login_array_cookie, time()+72000, '/', $domain, false);
+                $this->updateIp($login_array['id']);
                 return $login_array;
                 
             }else{

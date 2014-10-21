@@ -40,11 +40,27 @@ if(!isset($table)){
 
 		}else{
 			$id_cat = '';
-			$id_author = '';
+			$id_author = $user->getCurrentUser();
 			$title = '';
 			$content = '';
 			$date = date("Y-m-d H:i:s");
 			$tags = '';
+			$slug = '';
+		}
+
+		break;
+		case "categories":
+		if($category->isExist($id)){
+			if($result = $category->getData($id)){
+				$name = $result['name'];
+				$description = $result['description'];
+				$slug = $result['slug'];
+			}
+
+
+		}else{
+			$name = '';
+			$description = '';
 			$slug = '';
 		}
 
@@ -73,33 +89,6 @@ if(!isset($table)){
 		}
 
 		break;
-		case "compras":
-		$consulta = "SELECT * FROM compras WHERE id = ".$id." LIMIT 0,1";
-		$consulta_db = $mysqli->query($consulta);
-
-		if($resultado = $consulta_db->fetch_assoc()){
-		
-		$id_usuario = $resultado['id_usuario'];
-		$id_item = $resultado['id_item'];
-		$tipo_pago = $resultado['tipo_pago'];
-		$id_estado = $resultado['id_estado'];
-		$fecha = $resultado['fecha'];
-		$descripcion = $resultado['descripcion'];
-
-
-		}else{
-
-		$id_usuario = '';
-		$id_item = '';
-		$tipo_pago = '';
-		$id_estado = '';
-		$fecha = date("Y-m-d H:i:s");
-		$descripcion = '';
-
-
-		}
-
-		break;
 	}
 
 
@@ -117,7 +106,9 @@ if(!isset($table)){
 			<input type="file" name="image" id="image">
 			<?php if($action == "edit"){ ?>
 			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
+
 			<?php } ?>
+			<input name="id_author" id="id_author" type="hidden" value="<?php echo $id_author ?>">
 			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
 			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
 			<br><label for="title">Titulo:</label>
@@ -162,26 +153,12 @@ if($result = $category->getAll()){
 			<?php } ?>
 			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
 			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
-			<br><label for="nombre">Nombre:</label>
-			<input name="nombre" id="nombre" type="text" value="<?php echo $nombre; ?>">
-			<input name="enviar" type="submit" value="enviar">
-			<input name="limpiar" type="button" value="limpiar">
-		</form>
-
-		<?php
-		
-		break;
-	case "estados":
-		?>
-		
-		<form action="./actions.php" id="formulario" method="POST" class="action">
-			<?php if($action == "edit"){ ?>
-			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
-			<?php } ?>
-			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
-			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
-			<br><label for="nombre">Nombre:</label>
-			<input name="nombre" id="nombre" type="text" value="<?php echo $nombre; ?>">
+			<br><label for="name">Nombre:</label>
+			<input name="name" id="name" type="text" value="<?php echo $name; ?>">
+			<br><label for="description">Descripcion:</label>
+			<textarea name="description" id="description"><?php echo $description; ?></textarea>
+			<br><label for="slug">Slug:</label>
+			<input name="slug" id="slug" type="text" value="<?php echo $slug; ?>">	
 			<input name="enviar" type="submit" value="enviar">
 			<input name="limpiar" type="button" value="limpiar">
 		</form>
@@ -190,24 +167,6 @@ if($result = $category->getAll()){
 		
 		break;
 
-	case "t_pagos":
-		?>
-		
-		<form action="./actions.php" id="formulario" method="POST" class="action">
-			<?php if($action == "edit"){ ?>
-			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
-			<?php } ?>
-			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
-			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
-			<br><label for="nombre">Nombre:</label>
-			<input name="nombre" id="nombre" type="text" value="<?php echo $nombre; ?>">
-			<input name="enviar" type="submit" value="enviar">
-			<input name="limpiar" type="button" value="limpiar">
-		</form>
-
-		<?php
-		
-		break;
 
 	case "users":
 		?>
@@ -239,95 +198,6 @@ if($result = $category->getAll()){
 		
 		break;
 
-	case "compras":
-		?>
-		
-		<form action="./actions.php" id="formulario" method="POST" class="action">
-			<?php if($action == "edit"){ ?>
-			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
-			<?php } ?>
-			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
-			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
-
-			<br><label for="descripcion">Descripcion:</label>
-			<textarea name="descripcion" id="descripcion" type="text"><?php echo $descripcion; ?></textarea>
-			<br><label for="usuario">users:</label>
-			<select name="id_usuario" id="usuario">
-			<?php
-	$consulta_users = "SELECT * FROM users ORDER BY id DESC";
-
-
-if($resultado_users = $mysqli->query($consulta_users)){
-	while ($usuario = $resultado_users->fetch_array()) {
-		?>
-
-    <option <?php if($id_usuario == $usuario['id']){?> selected="selected" <?php }; ?> value="<?php echo $usuario['id'];?>"><?php echo $usuario['nombre'];?></option>
-<?php
-}
-}
-?>
-
-			</select>
-			<br><label for="id_item">Item:</label>
-			<select name="id_item" id="item">
-			<?php
-	$consulta_items = "SELECT * FROM item ORDER BY id DESC";
-
-
-if($resultado_items = $mysqli->query($consulta_items)){
-	while ($item = $resultado_items->fetch_array()) {
-		?>
-
-    <option <?php if($id_item == $item['id']){?> selected="selected" <?php }; ?> value="<?php echo $item['id'];?>"><?php echo $item['nombre'];?></option>
-<?php
-}
-}
-?>
-
-			</select>
-			<br><label for="id_estado">Estado:</label>
-			<select name="id_estado" id="estado">
-			<?php
-	$consulta_estados = "SELECT * FROM estados ORDER BY id DESC";
-
-
-if($resultado_estados = $mysqli->query($consulta_estados)){
-	while ($estado = $resultado_estados->fetch_array()) {
-		?>
-
-    <option <?php if($id_estado == $estado['id']){?> selected="selected" <?php }; ?> value="<?php echo $estado['id'];?>"><?php echo $estado['nombre'];?></option>
-<?php
-}
-}
-?>
-
-			</select>
-			<br><label for="tipo_pago">Tipo de Pago:</label>
-			<select name="tipo_pago" id="tipo_pago">
-			<?php
-	$consulta_tipo_pagos = "SELECT * FROM t_pagos ORDER BY id DESC";
-
-
-if($resultado_tipo_pagos = $mysqli->query($consulta_tipo_pagos)){
-	while ($tipo_pago = $resultado_tipo_pagos->fetch_array()) {
-		?>
-
-    <option <?php if($tipo_pago == $tipo_pago['id']){?> selected="selected" <?php }; ?> value="<?php echo $tipo_pago['id'];?>"><?php echo $tipo_pago['nombre'];?></option>
-<?php
-}
-}
-?>
-
-			</select>
-			<br><label for="fecha">Fecha:</label>
-			<input name="fecha" id="fecha" type="text"value="<?php echo $fecha; ?>">
-			<input name="enviar" type="submit" value="enviar">
-			<input name="limpiar" type="button" value="limpiar">
-		</form>
-
-		<?php
-		
-		break;
 
 
 	}

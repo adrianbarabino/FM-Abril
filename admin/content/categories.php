@@ -1,33 +1,35 @@
-<a href="./index.php?pagina=formularios&accion=crear&tabla=categorias" class="crear-nuevo"><?php echo $boton_nuevo; ?></a>
 
-<table id="listar_todos">
+<a href="./index.php?page=forms&action=create&table=categories" class="create-new"><?php echo $new_button; ?></a>
+
+<table id="list_all">
 	<thead>
 		<tr>
 			<td>ID</td>
 			<td>Nombre</td>
-			<td>Accion</td>
+			<td>Descripción</td>
+			<td>Slug</td>
+			<td>Acción</td>
 		</tr>
 	</thead>
 	<tbody>
 		
 	<?php
 
-	// Consultamos los productos a nuestra base de datos
+	
 
-	$consulta = "SELECT * FROM categorias ORDER BY id DESC";
+if($result = $category->getAll()){
+	foreach ($result as $key => $item) {
 
-
-if($resultado = $mysqli->query($consulta)){
-	while ($item = $resultado->fetch_array()) {
 
 			?>
 			<tr>
 				<td><?php echo $item["id"]; ?></td>
-				<td><?php echo $item["nombre"]; ?></td>
-
+				<td><?php echo $item["name"]; ?></td>
+				<td><?php echo $item["description"]; ?></td>
+				<td><?php echo $item["slug"]; ?></td>
 				<td>
-					<a href="./index.php?pagina=formularios&accion=editar&tabla=categorias&id=<?php echo $item['id']; ?>"><?php echo $boton_editar; ?></a>
-					<a href="./acciones.php?accion=borrar&tabla=categorias&id=<?php echo $item['id']; ?>"><?php echo $boton_borrar; ?></a>
+					<a href="./index.php?page=forms&action=edit&table=categories&id=<?php echo $item['id']; ?>"><?php echo $edit_button; ?></a>
+					<a href="./actions.php?action=delete&table=categories&id=<?php echo $item['id']; ?>&name=<?php echo $item["name"]; ?>"><?php echo $delete_button; ?></a>
 
 				</td>
 			</tr>

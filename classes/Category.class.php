@@ -22,7 +22,8 @@ class Category extends Misc {
         	$categoryData = array(
         		"id" => $row['id'],
         		"name" => $row['name'],
-        		"description" => $row['description']
+        		"description" => $row['description'],
+        		"slug" => $row['slug']
         	);
         	array_push($allCategories, $categoryData);
     	}
@@ -39,7 +40,8 @@ class Category extends Misc {
 	        	$categoryData = array(
 	        		"id" => $row['id'],
 	        		"name" => $row['name'],
-	        		"description" => $row['description']
+	        		"description" => $row['description'],
+	        		"slug" => $row['slug']
 	        	);
         	}
 
@@ -58,13 +60,14 @@ class Category extends Misc {
 			die("Error deleting the Category!");
 		}
     }
-    public function editCategory($id_category, $name, $description)
+    public function editCategory($id_category, $name, $description, $slug)
     {
  		$id_category = intval($id_category);
 		
 		$array_values = array(
 			"name" => $name,
-			"description" => $description
+			"description" => $description,
+			"slug" => $slug
 			);
 		$where_array = array("id", "=", $id_category);
 		if($this->_db->updateToDB("categories", $array_values, $where_array)){
@@ -76,13 +79,14 @@ class Category extends Misc {
 		}
     }
 
-    public function newCategory($name, $description)
+    public function newCategory($name, $description, $slug)
     {
 
 		
 		$array_values = array(
 			"name" => $name,
-			"description" => $description
+			"description" => $description,
+			"slug" => $slug
 			);
 
 
