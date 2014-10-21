@@ -9,10 +9,13 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<!-- Cargamos nuestro DateTime Picker -->
-	<script src="./jquery.datetimepicker.js"></script>
+	<script src="./js/plupload/plupload.full.min.js"></script>
+	<script src="./js/plupload/jquery.ui.plupload/jquery.ui.plupload.js"></script>
+	<script src="./js/jquery.datetimepicker.js"></script>
 	<!-- Cargamos la traduccion -->
-	<script src="./jquery.datepicker.spanish.js"></script>
-	<link rel="stylesheet" href="./css/estilos.css">
+	<script src="./js/jquery.datepicker.spanish.js"></script>
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
