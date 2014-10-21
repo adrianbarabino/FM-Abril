@@ -46,7 +46,7 @@
             
             
               <div class="feature-image">
-              <a href="/uploads/image/posts/<%= post.slug %>.jpg" rel="lightbox" title=""><img src="/thumb/phpThumb.php?src=/uploads/image/posts/<%= post.slug %>.jpg&w=150&h=100&zc=1" alt="<%= post.titulo %>" class="foto-entrada"/></a>
+              <a href="/uploads/image/posts/<%= post.slug %>.jpg" rel="lightbox" title=""><img src="/uploads/image/posts/thumb/<%= post.slug %>.jpg" alt="<%= post.titulo %>" class="foto-entrada"/></a>
 </div>
             <div class="excerpt">
             <%= post.short_content %></div>
