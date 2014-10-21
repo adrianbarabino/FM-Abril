@@ -27,9 +27,9 @@ function upload_image($id)
 	// Incluyo la librería WideImage
 	require("./lib/WideImage.php");
 	// Cargo la imagen, la redimensiono y la guardo.
-	// WideImage::load($_FILES["image"]["tmp_name"])->resize(600, 600)->saveToFile("../uploads/image/posts/$id.jpg");
-	// WideImage::load($_FILES["image"]["tmp_name"])->resize(200, 150)->saveToFile("../uploads/image/posts/thumb/$id.jpg");
-
+	WideImage::load($_FILES["image"]["tmp_name"])->resize(600, 600)->saveToFile("../uploads/image/posts/$id.jpg");
+	WideImage::load($_FILES["image"]["tmp_name"])->resize(200, 150)->saveToFile("../uploads/image/posts/thumb/$id.jpg");
+		print_r("Imagen subida");
 
 }
 function delete_table($table, $id, $name)
@@ -155,8 +155,8 @@ if ($_REQUEST['action'] == 'edit') {
 
 $id = $_REQUEST['id'];
 
-if($_FILES){
-	upload_image($id);
+if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+	upload_image($_REQUEST['slug']);
 }
 
 edit_table($table, $id, serialize($_REQUEST));
@@ -187,8 +187,8 @@ echo $table;
 
 $id = create_table($table, serialize($_REQUEST));
 
-if($_FILES){
-	upload_image($id);
+if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+	upload_image($_REQUEST['slug']);
 }
 ?>
 <!doctype html>

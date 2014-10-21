@@ -102,8 +102,7 @@ if(!isset($table)){
 		case "content":
 		?>
 		
-		<form enctype="multipart/form-data" action="./actions.php" id="formulario" method="GET" class="action">
-			<input type="file" name="image" id="image">
+		<form enctype="multipart/form-data" action="./actions.php" id="formulario" method="POST" class="action">
 			<?php if($action == "edit"){ ?>
 			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
 
@@ -113,6 +112,8 @@ if(!isset($table)){
 			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
 			<br><label for="title">Titulo:</label>
 			<input name="title" id="title" type="text" value="<?php echo $title; ?>">
+			<br><label for="image">Imagen:</label>
+			<input type="file" name="image" id="image">
 			<br><label for="slug">Slug:</label>
 			<input name="slug" id="slug" type="text" value="<?php echo $slug; ?>">			
 			<br><label for="tags">Etiquetas:</label>
@@ -171,7 +172,7 @@ if($result = $category->getAll()){
 	case "users":
 		?>
 		
-		<form action="./actions.php" id="formulario" method="GET" class="action">
+		<form action="./actions.php" id="formulario" method="POST" class="action">
 			<?php if($action == "edit"){ ?>
 			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
 			<?php } ?>
