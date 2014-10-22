@@ -1,6 +1,6 @@
 <?php
 
-require_once './classes/Misc.class.php';
+require_once(__DIR__.'/Misc.class.php');
 
 // ToDo List:
 // Add file upload
@@ -24,36 +24,6 @@ class Media extends Misc {
 	private $allowedTypes=array
 	('image/jpeg','image/gif','audio/ogg','audio/mpeg','audio/mp3','audio/wav','image/png','text/plain','application/ms-word');
 
-	public function __construct($uploadDir='./uploads/'){
-
-		if(!is_dir($uploadDir)){
-
-			throw new Exception('Invalid upload directory.');
-
-		}
-
-		if(!count($_FILES)){
-
-			throw new Exception('Invalid number of file upload parameters.');
-
-		}
-
-		foreach($_FILES['userfile'] as $key=>$value){
-
-			$this->{$key}=$value;
-
-		}
-
-		if(!in_array($this->type,$this->allowedTypes)){
-			print_r("El tipo es: ".$this->type);
-			throw new Exception('Invalid MIME type of target file.');
-
-		}
-		$folder = explode('/', $this->type);
-		print_r($folder);
-		$this->uploadFile=$uploadDir.$folder[0].'/'.basename($this->name);
-
-	}
 
 	// upload target file to specified location
 
@@ -138,14 +108,13 @@ class Media extends Misc {
 			die("Error deleting the Media!");
 		}
     }
-    public function editMedia($id_media, $id_cat, $id_author, $title, $media, $date, $tags)
+    public function editMedia($id_media, $name, $id_author = NULL, $type, $date)
     {
  		$id_media = intval($id_media);
 		
 		$array_values = array(
 			"name" => $name,
 			"id_author" => $id_author,
-			"realname" => $realname,
 			"type" => $type,
 			"date" => $date
 			);
@@ -153,7 +122,7 @@ class Media extends Misc {
 		// Todo - Upload system here
 		
 		$where_array = array("id", "=", $id_media);
-		if($this->updateToDB("media", $array_values, $where_array)){
+		if($this->_db->updateToDB("media", $array_values, $where_array)){
 			// Media update sucefully ! 
 		}else{
 			// Error
@@ -161,20 +130,22 @@ class Media extends Misc {
 		}
     }
 
-    public function newMedia($id_media, $id_cat, $id_author, $title, $media, $date, $tags)
+    public function newMedia($name, $id_author, $type, $date = NULL)
     {
-		
+		if($date == NULL)
+		$date = date("Y-m-d H:i:s");
+
+
 		$array_values = array(
 			"name" => $name,
 			"id_author" => $id_author,
-			"realname" => $realname,
 			"type" => $type,
 			"date" => $date
 			);
 
 		// Todo - Upload system here
 
-		if($id_media = $this->insertToDB("media", $array_values)){
+		if($id_media = $this->_db->insertToDB("media", $array_values)){
 			// Media created sucefully ! 
 		}else{
 			// Error

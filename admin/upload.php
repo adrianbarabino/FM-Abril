@@ -1,4 +1,18 @@
 <?php
+
+
+require("../data/config.php");
+require("../data/connection.php");
+
+require("../classes/Media.class.php");
+
+$media = new Media;
+
+require("../classes/User.class.php");
+
+$user = new User;
+
+
 /**
  * upload.php
  *
@@ -60,8 +74,10 @@ if (isset($_REQUEST["name"])) {
 		
 $fileType = split("/", $_FILES["file"]["type"]);
 $fileType = $fileType[0];
+$id_author = $user->getCurrentUser();
 
 $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileType . DIRECTORY_SEPARATOR .  $fileName;
+$media->newMedia($fileName, $id_author, $fileType);
 
 // Chunking might be enabled
 $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
