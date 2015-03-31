@@ -1,6 +1,7 @@
 function ocultar_paginas (sidebar, pageslug, page) {
 	console.log("Vamos a ocultar todo y hacer aparecer la pagina "+page);
 	$('section.actualPage').fadeOut();
+	$('#articulos').fadeOut();
 	$("#loading").fadeIn();
 	$(".current").removeClass('current');
 	$('#contenidoTop').remove();
@@ -22,6 +23,7 @@ function ocultar_paginas (sidebar, pageslug, page) {
 }
 
 // Starting our JS file
+var sliderReady = false;
 var model_index = 0;
 var BASE_URL = window.location.href.split('/')[2];
 var inicial_title = " - FM Abril - 105.7 - Rio Gallegos";
@@ -31,12 +33,13 @@ actualPage = "loading";
 var debug_variable1;
 function init () {
 	console.log("App on!");
+
 	$("html").removeClass("nojs");
 
 	// jPlayer
 	var stream = {
 		title: "Mi radio",
-		mp3: "http://fmabril.com.ar:9000/;stream/1"
+		mp3: "http://fmabril.com.ar:8000/;stream/1"
 	},
 	ready = false;
   	$("#jquery_jplayer_1").jPlayer({
@@ -72,7 +75,12 @@ function init () {
 	});
 	var xhr = $.getJSON('http://'+BASE_URL+'/api.php?action=getAllArticles');
 
+	xhr.error(function(data){
+		console.log("Hay un error en la peticion al API");
+		console.log(data);
+	});
 	xhr.done(function(data){
+
 		data.forEach(function(item){
 			console.log(item);
 			window.collections.articles.add(item);

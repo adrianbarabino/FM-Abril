@@ -66,6 +66,26 @@ if(!isset($table)){
 
 		break;
 
+		case "sliders":
+		if($slider->isExist($id)){
+			if($result = $slider->getData($id)){
+				
+				$name = $result['name'];
+				$label = $result['label'];
+				$idarticle = $result['idarticle'];
+				$description = $result['description'];
+			}
+
+
+		}else{
+			$name = '';
+			$label = '';
+			$idarticle = '';
+			$description = '';
+		}
+
+		break;
+
 		case "users":
 		if($user->isExist($id)){
 			if($result = $user->getUserData($id)){
@@ -145,6 +165,47 @@ if($result = $category->getAll()){
 		<?php
 		
 		break;
+	case "sliders":
+		?>
+		
+		<form enctype="multipart/form-data" action="./actions.php" id="formulario" method="POST" class="action">
+			<?php if($action == "edit"){ ?>
+			<input name="id" id="id" type="hidden" value="<?php echo $id; ?>">
+			<?php } ?>
+			<input name="action" id="action" type="hidden" value="<?php echo $action; ?>">
+			<input name="table" id="table" type="hidden" value="<?php echo $table; ?>">
+			<br><label for="name">Nombre:</label>
+			<input name="name" id="name" type="text" value="<?php echo $name; ?>">
+			<br><label for="name">Texto:</label>
+			<input name="label" id="label" type="text" value="<?php echo $label; ?>">
+			<br><label for="image">Imagen:</label>
+			<input type="file" name="image" id="image">
+			<br><label for="image_small">Imagen chica (opcional):</label>
+			<input type="file" name="image_small" id="image_small">
+			<br><label for="idarticle">Enlaza a articulo?:</label>
+			<select name="idarticle" id="idarticle">
+				<option <?php if($idarticle == 0){?>selected="selected"<?php };?> value="0">No enlaza</option>
+<?php
+if($result = $content->getAll()){
+
+	foreach ($result as $key => $item) {
+		?>
+
+    <option <?php if($idarticle == $item['id']){?> selected="selected" <?php }; ?> value="<?php echo $item['id'];?>"><?php echo $item['title'];?></option>
+<?php
+}
+}
+?>
+			<br><label for="description">Descripcion:</label>
+			<textarea name="description" id="description"><?php echo $description; ?></textarea>
+			<input name="enviar" type="submit" value="enviar">
+			<input name="limpiar" type="button" value="limpiar">
+		</form>
+
+		<?php
+		
+		break;
+
 	case "categories":
 		?>
 		

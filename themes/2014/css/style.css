@@ -5,6 +5,21 @@ Version: 1.0.0
 Author: Adrian Barabino
 Author URI: http://www.adrianbarabino.net/
 */
+.pageSection {
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+aside.sidebar {
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+	margin: 1em 0;
+	border-left: 1px solid #dedede;
+	padding-left: 2em;
+
+}
 
 body{
 	font-family: 'Droid Serif', serif;
@@ -24,7 +39,7 @@ body{
 }
 
 .pageSection{
-	padding: 1em;
+	padding: 1em 2em 1em 1em;
 }
 footer{
 	padding: 1em;
@@ -33,6 +48,7 @@ text-align: center;
 }
 #mainWrapper{
 	width: 90%;
+	max-width: 1200px;
 margin: 0 auto;
 border-left: 1px solid rgba(0,0,0,.1);
 border-right: 1px solid rgba(0,0,0,.1);
@@ -82,6 +98,30 @@ p.insideAudio{
 	vertical-align: super;
 }
 
+#weather {
+	width: 240px;
+	height: 120px;
+}
+#current {
+	width: 200px;
+	height: 120px;
+	text-align: right;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#current #temp {
+	font-size: 24px;
+	font-style: normal;
+	padding-top: 10px;
+	padding-right: 16px;
+}
+#current #fore {
+	padding-right: 18px;
+	font-size: 11px;
+}
+#current #city {
+	padding-right: 16px;
+}
 
 nav h2{
 	display: inline-block;
@@ -116,7 +156,7 @@ nav ul#nav{
 
 ul#nav li{
 	display: inline-block;
-	padding:0.5em 0.5em;
+	padding:0.5em 1em;
 	border-bottom: 8px solid #96A2D1;
 	transition: all 0.3s ease-in-out;
 	margin-bottom: -8px;
@@ -151,6 +191,35 @@ nav li.menu img{
 opacity: 0.3;
 bottom: 0.15em;
 left: 0.55em;
+}
+
+/* CSS 2015 */
+a.post-heading {
+    text-decoration: none;
+}
+
+.meta {
+    font-size: 1em;
+    font-family: "Droid Sans";
+    display: inline-block;
+    padding-top: 0.3em;
+    color: #aaa;
+}
+
+article h2 {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.feature-image {
+    display: inline-block;
+    float: left;
+    padding: 1em;
+    padding-left:0;
+}
+
+article.standard {
+min-height: 240px;
 }
 @media screen and (max-width:1300px){
 	div.jp-audio{

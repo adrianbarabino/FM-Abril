@@ -82,7 +82,7 @@ class Content extends Misc {
 			"content" => $this->cleanContent($row['content']),
 			"short_content" => $this->cutContent($row['content']),
 			"date" => $row['date'],
-			"short_date" => date("m/d/Y", strtotime($row['date'])),
+			"short_date" => date("d/m/Y", strtotime($row['date'])),
 			"tags" => $row['tags'],
 			"slug" => $row['slug']
     		);			

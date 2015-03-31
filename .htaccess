@@ -21,7 +21,9 @@ RewriteRule ^inicio /index.php
 RewriteRule ^contacto /index.php
 
 RewriteRule ^articulo/([^/]+)/ index.php
+RewriteRule ^contenido/uploads/(.*)$ /uploads/$1 [R=301,NC,L]
 RewriteRule ^contenido/([^/]+)/ index.php
+
 
 # All those URL rewrites are because we need to redirect
 # to all those addresses to our index.php, so we from 

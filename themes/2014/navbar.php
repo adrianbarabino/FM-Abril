@@ -31,8 +31,8 @@
 				<li><span><a href="/inicio/">Inicio</a></span></li>
 				<li><span><a href="/articulos/">Articulos</a></span></li>
 				<li><span><a href="/historia/">Historia</a></span></li>
-				<li><span><a href="/programas/">Programas</a></span></li>
-				<li><span><a href="/fotos/">Fotos</a></span></li>
+				<li><span><a href="/programas/">Nosotros</a></span></li>
+				<!-- <li><span><a href="/fotos/">Fotos</a></span></li> -->
 				<li><span><a href="/contacto/">Contacto</a></span></li>
 				<li class="menu"><span><a href="javascript:void(0);"><img src="http://dev.fmabril.net/themes/2014/img/menu.png">&nbsp;</a></span></li>
 			</ul>

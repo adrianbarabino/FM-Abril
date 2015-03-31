@@ -17,6 +17,10 @@ require("../classes/Category.class.php");
 
 $category = new Category;
 
+require("../classes/Slider.class.php");
+
+$slider = new Slider;
+
 // ./ se refiere a la carpeta actual, ../ se refiere a la carpeta padre, ../.. dos niveles arriba y asi sucesivamente. y si usamos / solo, refiere a la carpeta raiz
 
 if(isset($_GET['page'])){

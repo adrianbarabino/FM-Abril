@@ -17,21 +17,44 @@ require("../classes/Category.class.php");
 
 $category = new Category;
 
+require("../classes/Slider.class.php");
+
+$slider = new Slider;
+
 
 if($user->isLogged()){
 	if($user->isAdmin()){
 
+	// Incluyo la librería WideImage
+	require("./lib/WideImage.php");
 
 function upload_image($id)
 {
-	// Incluyo la librería WideImage
-	require("./lib/WideImage.php");
+
 	// Cargo la imagen, la redimensiono y la guardo.
 	WideImage::load($_FILES["image"]["tmp_name"])->resize(600, 600)->saveToFile("../uploads/image/posts/$id.jpg");
 	WideImage::load($_FILES["image"]["tmp_name"])->resize(200, 150)->saveToFile("../uploads/image/posts/thumb/$id.jpg");
 		print_r("Imagen subida");
 
 }
+function upload_slider_image($id, $small = NULL)
+{
+
+	// Cargo la imagen, la redimensiono y la guardo.
+	print_r($_FILES["image"]["tmp_name"]);
+
+	if($small){
+		WideImage::load($small)->resize(300, 200)->saveToFile("../uploads/image/sliders/small/$id.jpg");
+	}else{
+		WideImage::load($_FILES["image"]["tmp_name"])->resize(900, 600)->saveToFile("../uploads/image/sliders/$id.jpg");
+
+	}
+	
+	
+	print_r("Imagen subida");
+
+}
+
 function delete_table($table, $id, $name)
 {	
 				global $user, $content, $category;
@@ -96,7 +119,7 @@ function create_table($table, $fields)
 }
 function edit_table($table, $id, $fields)
 {
-	global $user, $content, $category;
+	global $user, $content, $category, $slider;
 
 				// Serialize nos sirve para poder convertir un array en una cadena de texto...
 				// Unserialize es para decifrar y poder volver esa cadena de texto en un array...
@@ -137,6 +160,13 @@ function edit_table($table, $id, $fields)
 								$slug      = $fields['slug'];
 								return $category->editCategory($id, $name, $description, $slug);
 					break;
+					case 'sliders':
+								$name      = $fields['name'];
+								$label      = $fields['label'];
+								$idarticle      = $fields['idarticle'];
+								$description      = $fields['description'];
+								return $slider->editSlider($id, $name, $label, $idarticle, $description);
+					break;
 
 				}
 								// $db->query($update_query);
@@ -154,9 +184,22 @@ if ($_REQUEST['action'] == 'edit') {
 
 
 $id = $_REQUEST['id'];
+if($table = "sliders"){
+	if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+		upload_slider_image($id);
+	}
 
-if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-	upload_image($_REQUEST['slug']);
+	if (is_uploaded_file($_FILES['image_small']['tmp_name'])) {
+		upload_slider_image($id, $_FILES['image_small']['tmp_name']);
+	}else{
+		upload_slider_image($id, $_FILES['image']['tmp_name']);
+	}
+
+}else{
+
+	if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+		upload_image($_REQUEST['slug']);
+	}
 }
 
 edit_table($table, $id, serialize($_REQUEST));

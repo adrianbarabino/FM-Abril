@@ -47,6 +47,7 @@ class Db {
 		$sql = sprintf("UPDATE `%s` SET %s WHERE `%s` %s %s", $table, $updateString, $where_array[0], $where_array[1], $where_array[2]);
 		if($result = $this->raw->query($sql)){
 			return true;
+
 		}else{
 			return false;
 

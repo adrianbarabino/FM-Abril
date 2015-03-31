@@ -5,6 +5,7 @@
   <!-- Now we load all JS files ! -->
   <script type="text/javascript" src="<?php printf("/themes/%s", $config['theme']); ?>/js/vendors/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="<?php printf("/themes/%s", $config['theme']); ?>/js/vendors/jquery.jplayer.min.js"> </script>
+  <script type="text/javascript" src="<?php printf("/themes/%s", $config['theme']); ?>/js/vendors/pgwslider.min.js"> </script>
   <script type="text/javascript" src="<?php printf("/themes/%s", $config['theme']); ?>/js/vendors/underscore.min.js"></script>
   <script type="text/javascript" src="<?php printf("/themes/%s", $config['theme']); ?>/js/vendors/backbone.min.js"></script>
     <script src="<?php printf("/themes/%s", $config['theme']); ?>/js/init.js"></script>    

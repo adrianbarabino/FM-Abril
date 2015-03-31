@@ -3,13 +3,13 @@ App.Routers.BaseRouter = Backbone.Router.extend({
 		"" :  "root",
 		"inicio/" :  "root",
 		"articulos/" :  "articles",
+		"historia/" :  "historia",
 		"contenido/:id/": "articleSingle",
 		"contenido/:id": "articleSingle",
 	},
 	initialize : function(){
 		var self = this;
 		$("#loading").fadeOut();
-
 
         this.bind('route', this.trackPageview);
     },
@@ -26,8 +26,20 @@ App.Routers.BaseRouter = Backbone.Router.extend({
         _gaq.push(['_trackPageview', url]);
     },
     root: function () {
+   
 		$(document).attr("title", "Inicio"+inicial_title);
 		ocultar_paginas(1, "inicio", "Inicio");
+		if(!sliderReady){
+
+			$('.pgwSlider').pgwSlider();
+			sliderReady = true;
+		}
+
+    },
+	historia: function(){
+
+		$(document).attr("title", "Historia"+inicial_title);
+		ocultar_paginas(1, "historia", "Historia");
 
     },
 	articles: function(){
